@@ -3,17 +3,46 @@
 window.addEventListener("load", function(){
    const form = document.querySelector("form")
    const faultyItems = document.querySelector("#faultyItems")
+   let pilotName = document.querySelector("input[name=pilotName]");
+   let copilotName = document.querySelector("input[name=copilotName]");
+   let fuelLevel = document.querySelector("input[name=fuelLevel]");
+   let cargoMass = document.querySelector("input[name=cargoMass]");
+   let pilotStatus = document.getElementById("pilotStatus");
+   let copilotStatus = document.getElementById("copilotStatus");
+   let fuelStatus = document.getElementById("fuelStatus");
+   let cargoStatus = document.getElementById("cargoStatus");
+   let launchStatus = document.getElementById("launchStatus");
+
+   //Fetch planetary JSON data
+fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
+   response.json().then(function(json){
+      const missionTarget = document.getElementById("missionTarget");
+      let index = Math.floor(Math.random()*json.length);
+      missionTarget.innerHTML = `
+      <h2>Mission Destination</h2>
+      <ol>
+         <li>Name: ${json[index].name}</li>
+         <li>Diameter: ${json[index].diameter}</li>
+         <li>Star: ${json[index].star}</li>
+         <li>Distance from Earth: ${json[index].distance}</li>
+         <li>Number of Moons: ${json[index].moons}</li>
+      </ol>
+      <img src="${json[index].image}"></img>`
+   })
+})    
 
    form.addEventListener("submit", function(){
-      let pilotName = document.querySelector("input[name=pilotName]");
-      let copilotName = document.querySelector("input[name=copilotName]");
-      let fuelLevel = document.querySelector("input[name=fuelLevel]");
-      let cargoMass = document.querySelector("input[name=cargoMass]");
-      let pilotStatus = document.getElementById("pilotStatus");
-      let copilotStatus = document.getElementById("copilotStatus");
-      let fuelStatus = document.getElementById("fuelStatus");
-      let cargoStatus = document.getElementById("cargoStatus");
-      let launchStatus = document.getElementById("launchStatus");
+      // let pilotName = document.querySelector("input[name=pilotName]");
+      // let copilotName = document.querySelector("input[name=copilotName]");
+      // let fuelLevel = document.querySelector("input[name=fuelLevel]");
+      // let cargoMass = document.querySelector("input[name=cargoMass]");
+      // let pilotStatus = document.getElementById("pilotStatus");
+      // let copilotStatus = document.getElementById("copilotStatus");
+      // let fuelStatus = document.getElementById("fuelStatus");
+      // let cargoStatus = document.getElementById("cargoStatus");
+      // let launchStatus = document.getElementById("launchStatus");
+
+  
 
    //End user validation alerts
       //Requires Pilot Name
@@ -58,24 +87,6 @@ window.addEventListener("load", function(){
          faultyItems.style.visibility = "hidden";
          launchStatus.innerHTML = `Shuttle is ready for launch`;
          launchStatus.style.color = "green";
-
-               //Fetch planetary JSON data
-         fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
-            response.json().then(function(json){
-               const missionTarget = document.getElementById("missionTarget");
-               missionTarget.innerHTML = `
-               <h2>Mission Destination</h2>
-               <ol>
-                  <li>Name: ${json[0].name}</li>
-                  <li>Diameter: ${json[0].diameter}</li>
-                  <li>Star: ${json[0].star}</li>
-                  <li>Distance from Earth: ${json[0].distance}</li>
-                  <li>Number of Moons: ${json[0].moons}</li>
-               </ol>
-               <img src="${json[0].image}"></img>`
-            })
-         })
-
          event.preventDefault();
       }
 
