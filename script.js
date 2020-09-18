@@ -84,7 +84,7 @@ fetch("https://handlers.education.launchcode.org/static/planets.json").then(func
 
       //Makes h2 "launchStatus" "Shuttle is ready for launch" and color = green when all elements are correct
       if(Number(fuelLevel.value) >= 10000 && Number(cargoMass.value) <= 10000){
-         faultyItems.style.visibility = "hidden";
+         faultyItems.style.visibility = "visible";
          launchStatus.innerHTML = `Shuttle is ready for launch`;
          launchStatus.style.color = "green";
          event.preventDefault();
